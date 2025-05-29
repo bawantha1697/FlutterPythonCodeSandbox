@@ -1,108 +1,506 @@
-# FlutterPythonCodeSandbox
-"A Flutter app for editing and simulating Python code execution."
+import 'package:flutter/material.dart';
+import 'home_page.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Python Code Reader',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(primarySwatch: Colors.deepPurple),
+      home: const HomePage(),
+    );
+  }
 
 
----
 
-## 🚀 Overview
 
-The **Flutter Python Code Sandbox** is a mobile application built with Flutter that provides a simple environment for writing and simulating the execution of Python code snippets. It features a clean, intuitive UI where users can input Python code into a dedicated editor and view simulated output in a console-like display. This app is perfect for quickly testing Python logic or for educational purposes on the go.
+import 'package:flutter/material.dart';
+import 'python_code_reader.dart'; // Assuming this file exists and contains PythonCodeReader widget
 
----
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
 
-## ✨ Features
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      // Use a subtle gradient for the background for a modern feel
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color(0xFFE0BBE4), // A soft lavender
+              Color(0xFF957DAD), // A muted purple
+            ],
+          ),
+        ),
+        child: CustomScrollView(
+          // Use CustomScrollView for flexibility and potential future scrollability
+          slivers: [
+            SliverAppBar(
+              expandedHeight: 150.0, // Make app bar larger
+              floating: false,
+              pinned: true,
+              backgroundColor:
+                  Colors
+                      .transparent, // Make app bar transparent to show background gradient
+              elevation: 0, // No shadow for a clean look
+              flexibleSpace: FlexibleSpaceBar(
+                centerTitle: true,
+                titlePadding: const EdgeInsets.only(bottom: 16.0),
+                title: Text(
+                  "Python Code Reader",
+                  style: TextStyle(
+                    color: Colors.deepPurple[900], // Darker purple for title
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    shadows: [
+                      Shadow(
+                        blurRadius: 4.0,
+                        color: Colors.black.withOpacity(0.2),
+                        offset: const Offset(1.0, 1.0),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            SliverFillRemaining(
+              hasScrollBody: false, // Ensure content doesn't scroll if it fits
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(24.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      // Enhanced welcome text
+                      const Text(
+                        "Unlock the World of Python!",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 32,
+                          fontWeight: FontWeight.w900,
+                          color: Color(
+                            0xFF4A148C,
+                          ), // Deepest purple for strong contrast
+                          letterSpacing: 1.5,
+                          height: 1.2,
+                          shadows: [
+                            Shadow(
+                              blurRadius: 8.0,
+                              color: Colors.black38,
+                              offset: Offset(2.0, 2.0),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        "Your gateway to exploring and understanding Python code snippets.",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 18,
+                          color:
+                              Colors.deepPurple[700], // Slightly lighter purple
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 50,
+                      ), // Increased spacing before button
+                      // Modernized ElevatedButton with gradient and shadow
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.deepPurple.shade300.withOpacity(
+                                0.6,
+                              ),
+                              spreadRadius: 3,
+                              blurRadius: 10,
+                              offset: const Offset(
+                                0,
+                                6,
+                              ), // changes position of shadow
+                            ),
+                          ],
+                          gradient: const LinearGradient(
+                            colors: [
+                              Color(0xFF8E24AA), // A vibrant purple 
+                              Color(0xFFD81B60), // A rich pink/red
+                            ],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                        ),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const PythonCodeReader(),
+                              ),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                Colors
+                                    .transparent, // Make button background transparent to show container gradient
+                            shadowColor:
+                                Colors.transparent, // No internal shadow
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 50,
+                              vertical: 20,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            minimumSize: const Size(
+                              200,
+                              60,
+                            ), // Ensure a minimum size
+                          ),
+                          child: const Row(
+                            mainAxisSize: MainAxisSize.min, // Wrap content
+                            children: [
+                              Icon(
+                                Icons.code,
+                                color: Colors.white,
+                                size: 24,
+                              ), // Code icon
+                              SizedBox(width: 10),
+                              Text(
+                                "View Python Code",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.white,
+                                  letterSpacing: 0.8,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
 
-* **Code Editor:** A clean, dark-themed text editor for writing Python code with monospace font for readability.
-* **Simulated Execution:** A basic simulation of Python code execution, providing sample output or error messages based on simple logic checks.
-* **Console Output:** A dedicated output console to display simulated results or errors, with distinct styling for each.
-* **"Run Code" Button:** An interactive button with a loading indicator to provide visual feedback during simulated execution.
-* **Clear Console:** A convenient button to clear the output console.
-* **Modern UI:** Utilizes Flutter's rich widget set to create a visually appealing and user-friendly interface with consistent theming and subtle animations.
 
----
+import 'package:flutter/material.dart';
 
-## 📸 Screenshots
+class PythonCodeReader extends StatefulWidget {
+  const PythonCodeReader({super.key});
 
-*(You would typically add screenshots here once you run the app on a device or emulator. For example:)*
+  @override
+  State<PythonCodeReader> createState() => _PythonCodeReaderState();
+}
 
-| Home Page | Code Editor & Output |
-| :-------: | :------------------: |
-| ![Home Page Screenshot](https://via.placeholder.com/300x600?text=Home+Page) | ![Code Editor Screenshot](https://via.placeholder.com/300x600?text=Code+Editor) |
+class _PythonCodeReaderState extends State<PythonCodeReader> {
+  final TextEditingController _controller = TextEditingController(
+    text: '''
+# This is a sample Python code snippet.
+def greet(name):
+    message = f"Hello, {name}!"
+    print(message)
+    return message
 
----
+result = greet("Flutter User")
+# print(result) # Uncomment to see the return value in a real runner
+''',
+  );
 
-## 🛠️ Installation & Setup
+  String output = "";
+  String error = "";
+  bool _isRunning = false; // To show loading state for the button
 
-To get this project up and running on your local machine, follow these steps:
+  void runCode() async {
+    setState(() {
+      _isRunning = true; // Set loading state
+      output = ""; // Clear previous output
+      error = ""; // Clear previous error
+    });
 
-### Prerequisites
+    final code = _controller.text;
 
-* **Flutter SDK:** Make sure you have Flutter installed. If not, follow the official Flutter installation guide: [Install Flutter](https://flutter.dev/docs/get-started/install)
-* **IDE:** Visual Studio Code with the Flutter extension, or Android Studio with the Flutter plugin.
+    // --- Start of Simulated Python Execution ---
+    // Simulate a network/processing delay to show the loading indicator
+    await Future.delayed(const Duration(seconds: 1));
 
-### Steps
+    // Simple, *very basic* simulation of Python logic
+    // In a real app, this would involve sending code to a backend Python interpreter
+    if (code.contains("def") && code.contains("(") && code.contains(")")) {
+      if (code.contains("print(\"Hello, Flutter User!\")") ||
+          code.contains("greet(\"Flutter User\")")) {
+        setState(() {
+          output = "Hello, Flutter User!\n(Simulated Output)";
+          error = "";
+        });
+      } else if (code.contains("print(")) {
+        setState(() {
+          output = "Code ran successfully. (Simulated Output)";
+          error = "";
+        });
+      } else {
+        setState(() {
+          output = "No print statement found to generate output (simulated).";
+          error = "";
+        });
+      }
+    } else {
+      setState(() {
+        error = "Syntax Error: Missing 'def' or parentheses. (Simulated)";
+        output = "";
+      });
+    }
+    // --- End of Simulated Python Execution ---
 
-1.  **Clone the repository:**
-    ```bash
-    git clone [https://github.com/YOUR_USERNAME/flutter-python-code-sandbox.git](https://github.com/YOUR_USERNAME/flutter-python-code-sandbox.git)
-    ```
-    (Replace `YOUR_USERNAME` with your GitHub username and `flutter-python-code-sandbox` with your chosen repository name)
+    setState(() {
+      _isRunning = false; // End loading state
+    });
+  }
 
-2.  **Navigate to the project directory:**
-    ```bash
-    cd flutter-python-code-sandbox
-    ```
+  void clearOutput() {
+    setState(() {
+      output = "";
+      error = "";
+    });
+  }
 
-3.  **Get Flutter packages:**
-    ```bash
-    flutter pub get
-    ```
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
-4.  **Run the app:**
-    ```bash
-    flutter run
-    ```
-    This will launch the app on your connected device or emulator.
-
----
-
-## 💡 How It Works (Simulation)
-
-It's important to note that this application **does not contain a full Python interpreter**. The `runCode()` function within `python_code_reader.dart` performs a **simulated execution** based on simple string checks. For instance, it checks if `greet(` is present in the code to produce a specific "Hello, Flutter User!" output.
-
-To integrate a real Python interpreter, you would typically need to:
-* Utilize a backend service that can execute Python code (e.g., a simple Flask or Node.js server).
-* Send the code from the Flutter app to this backend.
-* Receive the actual output or errors from the backend.
-* Display them in the console.
-
-This project serves as a UI prototype and a starting point for such an application.
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! If you have suggestions for improvements, new features, or bug fixes, please feel free to:
-
-1.  Fork the repository.
-2.  Create a new branch (`git checkout -b feature/your-feature-name`).
-3.  Make your changes.
-4.  Commit your changes (`git commit -m 'feat: Add new feature X'`).
-5.  Push to the branch (`git push origin feature/your-feature-name`).
-6.  Open a Pull Request.
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 🙏 Acknowledgements
-
-* Flutter documentation for excellent guides and resources.
-* The open-source community for countless libraries and inspiration.
-
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          "Python Code Sandbox",
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 1.0,
+          ),
+        ),
+        backgroundColor:
+            Colors.deepPurple[900], // Darker, richer purple for app bar
+        elevation: 8, // Add a subtle shadow to the app bar
+        centerTitle: true,
+      ),
+      backgroundColor:
+          Colors.grey[50], // Very light background for the main screen
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment:
+              CrossAxisAlignment.stretch, // Make children stretch horizontally
+          children: [
+            // Code Editor Section
+            Expanded(
+              flex: 3, // This section takes more vertical space
+              child: Card(
+                elevation: 5, // Card elevation for a raised effect
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ), // Rounded corners for the card
+                clipBehavior:
+                    Clip.antiAlias, // Ensures content is clipped to rounded corners
+                child: Container(
+                  color:
+                      Colors
+                          .grey[900], // Dark background for the code editor area
+                  padding: const EdgeInsets.all(12.0),
+                  child: TextField(
+                    controller: _controller,
+                    maxLines: null, // Allows the TextField to be multi-line
+                    expands:
+                        true, // Makes the TextField take all available vertical space in its parent
+                    style: const TextStyle(
+                      fontFamily:
+                          'monospace', // Monospace font for code readability
+                      fontSize: 16,
+                      color: Colors.white, // White text color for code
+                    ),
+                    cursorColor:
+                        Colors.deepPurpleAccent, // Accent color for the cursor
+                    decoration: InputDecoration(
+                      border:
+                          InputBorder.none, // Remove default TextField border
+                      hintText: "Enter your Python code here...",
+                      hintStyle: TextStyle(
+                        color: Colors.grey[600],
+                      ), // Hint text color
+                      contentPadding:
+                          EdgeInsets.zero, // Remove default content padding
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20), // Spacing between editor and button
+            // Run Button
+            ElevatedButton.icon(
+              onPressed:
+                  _isRunning
+                      ? null
+                      : runCode, // Disable button while code is running
+              icon:
+                  _isRunning
+                      ? const SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(
+                          strokeWidth:
+                              2, // Thinner stroke for the loading indicator
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            Colors.white,
+                          ), // White loading indicator
+                        ),
+                      )
+                      : const Icon(
+                        Icons.play_arrow_rounded,
+                        size: 28,
+                      ), // Play icon when not running
+              label: Text(
+                _isRunning
+                    ? "Running..."
+                    : "Run Code", // Change text based on running state
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor:
+                    _isRunning
+                        ? Colors.deepPurple[300]
+                        : Colors.deepPurpleAccent, // Change color when running
+                foregroundColor: Colors.white, // Text/icon color
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 30,
+                  vertical: 15,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(
+                    12,
+                  ), // Rounded corners for the button
+                ),
+                elevation: 8, // Button shadow
+                shadowColor: Colors.deepPurpleAccent.withOpacity(
+                  0.5,
+                ), // Custom shadow color
+              ),
+            ),
+            const SizedBox(height: 20), // Spacing between button and output
+            // Output Console Section
+            Expanded(
+              flex: 2, // This section takes less vertical space than the editor
+              child: Card(
+                elevation: 5, // Card elevation for a raised effect
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ), // Rounded corners for the card
+                clipBehavior: Clip.antiAlias,
+                child: Container(
+                  color:
+                      Colors
+                          .blueGrey[900], // Dark background for the console area
+                  padding: const EdgeInsets.all(12.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            "Console Output:",
+                            style: TextStyle(
+                              color: Colors.white70, // Light grey for label
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          IconButton(
+                            icon: const Icon(
+                              Icons.clear_all,
+                              color: Colors.white70,
+                            ), // Clear icon
+                            onPressed: clearOutput, // Function to clear output
+                            tooltip:
+                                "Clear Output", // Tooltip for accessibility
+                          ),
+                        ],
+                      ),
+                      const Divider(
+                        color: Colors.white30,
+                        height: 10,
+                      ), // A subtle divider
+                      Expanded(
+                        child: SingleChildScrollView(
+                          // Make output scrollable if content overflows
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              if (error.isNotEmpty)
+                                Text(
+                                  "ERROR: $error",
+                                  style: const TextStyle(
+                                    color: Colors.redAccent,
+                                    fontFamily: 'monospace',
+                                  ), // Red for errors
+                                ),
+                              if (output.isNotEmpty)
+                                Text(
+                                  "$output",
+                                  style: const TextStyle(
+                                    color: Colors.lightGreenAccent,
+                                    fontFamily: 'monospace',
+                                  ), // Green for output
+                                ),
+                              if (output.isEmpty && error.isEmpty)
+                                Text(
+                                  "No output yet...",
+                                  style: TextStyle(
+                                    color: Colors.blueGrey[300],
+                                    fontStyle: FontStyle.italic,
+                                  ), // Placeholder text
+                                ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
 
 
